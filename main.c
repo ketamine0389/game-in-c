@@ -11,9 +11,11 @@
 #include <string.h> // memcpy
 //#include <stdlib.h>
 //#include <time.h>
+// user-defined
+#include "Map.h"
+#include "Player.h"
 
 struct winsize getTerminalSize();
-void genMap();
 int getKey();
 
 int main()
@@ -23,23 +25,36 @@ int main()
 
     // vars
     int key; 
+    Player plr;
+    Map map;
     struct winsize win;
 
     // get size of terminal window
     win = getTerminalSize();
     printf("Width = %d, Height = %d\n", win.ws_col, win.ws_row);
 
+    map = genMap();
+    setPlayerPos(p, map, 10, 10);
+
     for (int i = 0; i < win.ws_row-2; i++) // - 2 for the info row and the output row
     {
-        for (int j = 0; j < win.ws_col; j++) printf("#");
+        for (int j = 0; j < win.ws_col; j++)
+        {   
+            if (i == plr.y_pos && j == plr.x_pos) printf("#");
+            else printf(".");
+        }
         printf("\n");
     }
 
+    
     // Game loop
     for (;;)
     {
         key = getKey();
 
+        // if (key == -1) break; // error
+
+        // ctrl + d, esc
         if (key == 0x1B || key == 0x04) break;
         else 
         {
@@ -47,7 +62,9 @@ int main()
             fflush(stdout);
         }
     }
-
+    
+    freeMap(map);
+    free(plr);
     return 0;
 }
 
