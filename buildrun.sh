@@ -1,2 +1,3 @@
-gcc *.c -o ./a.out
+gcc *.c -o ./a.out 
+wait
 ./a.out
