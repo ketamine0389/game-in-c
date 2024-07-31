@@ -26,15 +26,15 @@ int main()
     // vars
     int key; 
     Player plr;
-    Map map;
+    Map* map;
     struct winsize win;
 
     // get size of terminal window
     win = getTerminalSize();
     printf("Width = %d, Height = %d\n", win.ws_col, win.ws_row);
 
-    map = genMap();
-    setPlayerPos(p, map, 10, 10);
+    map = genMap(win.ws_col, win.ws_row);
+    setPlayerPos(&plr, map, 10, 10);
 
     for (int i = 0; i < win.ws_row-2; i++) // - 2 for the info row and the output row
     {
@@ -64,7 +64,6 @@ int main()
     }
     
     freeMap(map);
-    free(plr);
     return 0;
 }
 

@@ -2,7 +2,7 @@
 #include <math.h>
 #include <stdlib.h>
 
-Map genMap(int len, int wid)
+Map* genMap(int len, int wid)
 {
     Map* map = (Map*)malloc(sizeof(Map));
     if (map == NULL) return NULL;
