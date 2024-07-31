@@ -17,8 +17,8 @@ bool setPlayerPos(Player* plr, Map* map, int x, int y)
     return true;
 }
 
-int incrLoudness(Player* plr, int i)
+int incrLoudness(Player* plr, int incr)
 {
-    plr->loudness += i;
+    plr->loudness += incr;
     return plr->loudness;
 }

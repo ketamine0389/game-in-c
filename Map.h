@@ -9,6 +9,6 @@ typedef struct
 } Map;
 
 Map* genMap();
-void freeMap(Map*);
+void freeMap(Map* map);
 
 #endif // MAP_H
