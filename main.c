@@ -25,7 +25,6 @@ int main()
 
     // vars
     int key; 
-    Player plr;
     Map* map;
     struct winsize win;
 
@@ -34,25 +33,16 @@ int main()
     printf("Width = %d, Height = %d\n", win.ws_col, win.ws_row);
 
     map = genMap(win.ws_col, win.ws_row);
-    setPlayerPos(&plr, map, 10, 10);
+    if (map == NULL) return 1;
 
-    for (int i = 0; i < win.ws_row-2; i++) // - 2 for the info row and the output row
-    {
-        for (int j = 0; j < win.ws_col; j++)
-        {   
-            if (i == plr.y_pos && j == plr.x_pos) printf("#");
-            else printf(".");
-        }
-        printf("\n");
-    }
+    printMap(map);
 
-    
     // Game loop
     for (;;)
     {
         key = getKey();
 
-        // if (key == -1) break; // error
+        if (key == -1) break; // error
 
         // ctrl + d, esc
         if (key == 0x1B || key == 0x04) break;
@@ -88,6 +78,8 @@ int getKey()
     new_term_attr.c_cc[VTIME] = 0;
     new_term_attr.c_cc[VMIN] = 1;
     tcsetattr(fileno(stdin), TCSANOW, &new_term_attr);
+    // validate character before parsing
+    
 
     // read character
     //  -1 if no char avail

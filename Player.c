@@ -1,20 +1,18 @@
+#include "Map.h"
 #include "Player.h"
 #include <stdbool.h>
+#include <stdlib.h>
 
-bool movePlayer(Player* plr, Map* map, int dx, int dy)
+Player* initPlayer()
 {
-    return setPlayerPos(plr, map, plr->x_pos + dx, plr->y_pos + dy);
-}
+    Player* plr = malloc(sizeof(Player));
+    if (plr == NULL) return NULL;
 
-bool setPlayerPos(Player* plr, Map* map, int x, int y)
-{
-    if (x > map->width || x < 0) return false;
-    else if (y > map->length || y < 0) return false;
+    plr->loudness = 0;
+    plr->pos.x = -1;
+    plr->pos.y = -1;
     
-    plr->x_pos = x;
-    plr->y_pos = y;
-
-    return true;
+    return plr;
 }
 
 int incrLoudness(Player* plr, int incr)
